@@ -1,0 +1,35 @@
+{
+  "type": "record",
+  "name": "MessageAvro",
+  "namespace": "com.chatAny.avro.message",
+  "doc": "A view over all messages",
+  "fields": [
+      {
+        "name": "id",
+        "type": "string"
+      },
+      {
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "name": "userId",
+        "type": "string"
+      },
+      {
+        "name": "userName",
+        "type": "string"
+      },
+      {
+        "name": "roomId",
+        "type": "string"
+      },
+      {
+        "name": "createdDate",
+        "type": {
+            "type": "long",
+            "logicalType": "timestamp-millis"
+        }
+      }
+  ]
+}
