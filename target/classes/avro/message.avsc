@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "MessageAvro",
-  "namespace": "com.wandrillecorp.avro.message",
+  "namespace": "com.chatAny.avro.message",
   "doc": "A view over all messages",
   "fields": [
       {

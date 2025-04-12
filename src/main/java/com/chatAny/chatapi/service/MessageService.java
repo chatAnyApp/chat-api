@@ -1,11 +1,12 @@
 package com.chatAny.chatapi.service;
 
-import com.chatAny.chatapi.domain.bus.ChatMessageBus;
 import com.chatAny.chatapi.domain.message.Message;
 import com.chatAny.chatapi.domain.message.MessageRepository;
 import com.chatAny.chatapi.domain.user.User;
 import com.chatAny.chatapi.domain.user.UserRepository;
+import com.chatAny.chatapi.dto.MessageCreateDto;
 import org.springframework.data.domain.Sort;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -15,16 +16,16 @@ import java.util.List;
 public class MessageService {
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
-    private final ChatMessageBus chatMessageBus;
+    private final SimpMessagingTemplate template;
 
     public MessageService(
             MessageRepository messageRepository,
             UserRepository userRepository,
-            ChatMessageBus chatMessageBus
+            SimpMessagingTemplate template
     ) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
-        this.chatMessageBus = chatMessageBus;
+        this.template = template;
     }
 
     public List<Message> getAllMessages() {
@@ -32,9 +33,10 @@ public class MessageService {
         return messageRepository.findAllBy(sort);
     }
 
-    public Message save(String userId,
-                        String text,
-                        String roomId) {
+    public Message save(MessageCreateDto command) {
+        var userId = command.getUserId();
+        var roomId = command.getRoomId();
+        var text = command.getText();
         User user = userRepository.findByIdAndRoomId(userId, roomId);
         if (user != null) {
             Message message = new Message()
@@ -43,14 +45,13 @@ public class MessageService {
                     .setText(text)
                     .setRoomId(roomId)
                     .setCreatedDate(Instant.now());
-            return messageRepository.save(message);
+            var savedMessage = messageRepository.save(message);
+            String destination = "/chat/" + message.getRoomId();
+            template.convertAndSend(destination, savedMessage);
+            return savedMessage;
         } else {
             throw new IllegalStateException();
         }
-    }
-
-    public void send(Message message) {
-        chatMessageBus.emit(message);
     }
 
     public List<Message> getAllMessagesByRoom(String roomId) {

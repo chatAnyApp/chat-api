@@ -33,10 +33,7 @@ public class MessageController {
     public void addNewMessage(
             @Valid @RequestBody MessageCreateDto command) {
         try {
-            Message message = messageService.save(command.getUserId(),
-                    command.getText(),
-                    command.getRoomId());
-            messageService.send(message);
+            messageService.save(command);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
