@@ -2,6 +2,7 @@ package com.chatAny.chatapi.api;
 
 import com.chatAny.chatapi.domain.room.Room;
 import com.chatAny.chatapi.domain.user.User;
+import com.chatAny.chatapi.dto.RoomCreateDto;
 import com.chatAny.chatapi.service.RoomService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,9 @@ public class RoomController {
     }
 
     @PostMapping()
-    public ResponseEntity<User> createRoom(@RequestParam("userId") String userId,
-                                           @RequestParam("roomName") String roomName) {
+    public ResponseEntity<User> createRoom(@RequestBody RoomCreateDto command) {
+        var userId = command.getUserId();
+        var roomName = command.getRoomName();
         return roomService.createRoom(userId, roomName);
     }
 }

@@ -5,7 +5,9 @@
  */
 package com.chatAny.avro.message;
 
+import org.apache.avro.generic.GenericArray;
 import org.apache.avro.specific.SpecificData;
+import org.apache.avro.util.Utf8;
 import org.apache.avro.message.BinaryMessageEncoder;
 import org.apache.avro.message.BinaryMessageDecoder;
 import org.apache.avro.message.SchemaStore;
@@ -13,7 +15,7 @@ import org.apache.avro.message.SchemaStore;
 /** A view over all messages */
 @org.apache.avro.specific.AvroGenerated
 public class MessageAvro extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -8833395312118001067L;
+  private static final long serialVersionUID = -7129658676954512287L;
 
 
   public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"MessageAvro\",\"namespace\":\"com.chatAny.avro.message\",\"doc\":\"A view over all messages\",\"fields\":[{\"name\":\"id\",\"type\":\"string\"},{\"name\":\"text\",\"type\":\"string\"},{\"name\":\"userId\",\"type\":\"string\"},{\"name\":\"userName\",\"type\":\"string\"},{\"name\":\"roomId\",\"type\":\"string\"},{\"name\":\"createdDate\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}}]}");

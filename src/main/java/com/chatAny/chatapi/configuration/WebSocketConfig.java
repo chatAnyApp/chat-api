@@ -1,4 +1,4 @@
-package com.chatAny.chatapi.Configuration;
+package com.chatAny.chatapi.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -13,7 +13,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/socket")
-                .setAllowedOrigins("http://localhost:4200", "http://localhost:5173", "http://localhost:3000");
+                .setAllowedOrigins("http://localhost", "http://localhost:80",  "http://localhost:4200", "http://localhost:5173", "http://localhost:3000");
     }
 
     @Override
