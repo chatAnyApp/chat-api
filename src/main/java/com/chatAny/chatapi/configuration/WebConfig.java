@@ -12,9 +12,6 @@ public class WebConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost");
-        config.addAllowedOrigin("http://localhost:80");
-        config.addAllowedOrigin("http://localhost:4200");
         String frontendUrl = System.getenv("FRONTEND_URL");
         if (frontendUrl != null) {
             config.addAllowedOrigin(frontendUrl);
