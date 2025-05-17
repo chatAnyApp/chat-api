@@ -16,6 +16,7 @@ public class WebConfig {
         if (frontendUrl != null) {
             config.addAllowedOrigin(frontendUrl);
         }
+        config.addAllowedOrigin("*");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
