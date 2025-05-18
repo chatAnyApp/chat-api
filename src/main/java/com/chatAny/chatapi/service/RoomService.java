@@ -24,7 +24,6 @@ public class RoomService {
     public ResponseEntity<List<Room>> getRooms() {
         String frontendUrl = System.getenv("FRONTEND_URL");
         System.out.println("FRONTEND_URL: " + frontendUrl);
-        System.out.println("FRONTEND_URL: " + frontendUrl);
         Sort sort = Sort.by(Sort.Order.asc("date"));
         List<Room> rooms = roomRepository.findAllBy(sort);
         return ResponseEntity.ok(rooms);
