@@ -2,6 +2,7 @@ package com.chatAny.chatapi.domain.message;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
@@ -17,6 +18,8 @@ public class Message implements Serializable {
     private String userName;
     private String userId;
     private String text;
+
+    @CreatedDate
     private Instant createdDate;
     private String roomId;
 }

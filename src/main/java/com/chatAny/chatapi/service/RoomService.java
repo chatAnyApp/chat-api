@@ -31,7 +31,6 @@ public class RoomService {
         // todo room name max length check
         Room room = new Room()
                 .setName(roomName)
-                .setCreatedDate(Instant.now())
                 .setNumberOfUsers(0);
 
         room = roomRepository.save(room);

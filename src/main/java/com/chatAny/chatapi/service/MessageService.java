@@ -2,6 +2,8 @@ package com.chatAny.chatapi.service;
 
 import com.chatAny.chatapi.domain.message.Message;
 import com.chatAny.chatapi.domain.message.MessageRepository;
+import com.chatAny.chatapi.domain.room.Room;
+import com.chatAny.chatapi.domain.room.RoomRepository;
 import com.chatAny.chatapi.domain.user.User;
 import com.chatAny.chatapi.domain.user.UserRepository;
 import com.chatAny.chatapi.dto.MessageCreateDto;
@@ -17,15 +19,17 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
     private final SimpMessagingTemplate template;
+    private final RoomRepository roomRepository;
 
     public MessageService(
             MessageRepository messageRepository,
             UserRepository userRepository,
-            SimpMessagingTemplate template
-    ) {
+            SimpMessagingTemplate template,
+            RoomRepository roomRepository) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
         this.template = template;
+        this.roomRepository = roomRepository;
     }
 
     public List<Message> getAllMessages() {
@@ -43,8 +47,13 @@ public class MessageService {
                     .setUserId(userId)
                     .setUserName(user.getName())
                     .setText(text)
-                    .setRoomId(roomId)
-                    .setCreatedDate(Instant.now());
+                    .setRoomId(roomId);
+
+            Room room = roomRepository.findById(roomId).orElseThrow();
+            roomRepository.save(room);
+
+            userRepository.save(user);
+
             var savedMessage = messageRepository.save(message);
             String destination = "/chat/" + message.getRoomId();
             template.convertAndSend(destination, savedMessage);

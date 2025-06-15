@@ -12,4 +12,6 @@ public interface MessageRepository extends MongoRepository<Message, String> {
     List<Message> findAllBy(Sort sort);
 
     List<Message> findAllByRoomId(String roomId, Sort sort);
+
+    List<Message> findAllByRoomIdIn(List<String> roomIds);
 }

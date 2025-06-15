@@ -27,8 +27,7 @@ public class UserService {
             return existingUser;
         } else {
             User user = new User()
-                    .setName(userName)
-                    .setCreatedDate(Instant.now());
+                    .setName(userName);
             return userRepository.save(user);
         }
     }
