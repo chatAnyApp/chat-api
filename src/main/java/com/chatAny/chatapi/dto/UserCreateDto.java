@@ -8,12 +8,4 @@ import lombok.Getter;
 public class UserCreateDto {
     @NotNull
     private String name;
-
-    public UserCreateDto() {
-    }
-
-    public UserCreateDto(String name) {
-        this.name = name;
-    }
-
 }

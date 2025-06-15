@@ -13,6 +13,5 @@ public interface RoomRepository extends MongoRepository<Room, String> {
 
     Room findByName(String roomName);
 
-    // find lastModifiedDate less than a given Instant
     List<Room> findByLastModifiedDateLessThan(Instant lastModifiedDate);
 }

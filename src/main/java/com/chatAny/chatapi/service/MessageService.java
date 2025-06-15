@@ -43,16 +43,16 @@ public class MessageService {
         var text = command.getText();
         User user = userRepository.findByIdAndRoomId(userId, roomId);
         if (user != null) {
+            Room room = roomRepository.findById(roomId).orElseThrow();
+            roomRepository.save(room);
+
+            userRepository.save(user);
+
             Message message = new Message()
                     .setUserId(userId)
                     .setUserName(user.getName())
                     .setText(text)
                     .setRoomId(roomId);
-
-            Room room = roomRepository.findById(roomId).orElseThrow();
-            roomRepository.save(room);
-
-            userRepository.save(user);
 
             var savedMessage = messageRepository.save(message);
             String destination = "/chat/" + message.getRoomId();

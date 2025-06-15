@@ -3,6 +3,7 @@ package com.chatAny.chatapi.service;
 import com.chatAny.chatapi.domain.room.Room;
 import com.chatAny.chatapi.domain.room.RoomRepository;
 import com.chatAny.chatapi.domain.user.User;
+import com.chatAny.chatapi.dto.RoomCreateDto;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,11 @@ public class RoomService {
         return ResponseEntity.ok(rooms);
     }
 
-    public ResponseEntity<User> createRoom(String userId, String roomName) {
-        // todo room name max length check
+    public ResponseEntity<User> createRoom(RoomCreateDto command){
+        var userId = command.getUserId();
+        var roomName = command.getRoomName();
         Room room = new Room()
-                .setName(roomName)
-                .setNumberOfUsers(0);
+                .setName(roomName);
 
         room = roomRepository.save(room);
 
